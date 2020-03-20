@@ -6,6 +6,7 @@
   "description": "A helpful bot for discord",
   "dependencies": {
     "hubot": "^3.3.2",
+    "hubot-calm-down": "^1.0.1",
     "hubot-diagnostics": "^1.0.0",
     "hubot-discord": "^2.1.0",
     "hubot-help": "^1.0.1",
