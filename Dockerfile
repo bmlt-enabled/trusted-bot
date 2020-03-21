@@ -5,4 +5,4 @@ WORKDIR /opt
 RUN npm install
 ADD . /opt
 
-CMD source process.env && bin/hubot --alias $HUBOT_NAME --name $HUBOT_NAME --adapter $ADAPTER
+CMD source process.env && bin/hubot --alias % --name $HUBOT_NAME --adapter $ADAPTER
