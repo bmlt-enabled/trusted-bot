@@ -6,6 +6,5 @@
   "hubot-redis-brain",
   "hubot-rules",
   "hubot-uptime",
-  "hubot-memes",
-  "hubot-calm-down"
+  "hubot-memes"
 ]
