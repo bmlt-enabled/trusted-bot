@@ -19,10 +19,12 @@
     "hubot-scripts": "^2.17.2",
     "hubot-uptime": "^1.0.1",
     "hubot-urban": "^1.0.1",
-    "hubot-victory": "^1.5.3"
+    "hubot-victory": "^1.5.3",
+    "xml2js": "^0.4.23"
   },
   "engines": {
     "node": "8.12.0",
     "npm": "6.4.1"
-  }
+  },
+  "devDependencies": {}
 }

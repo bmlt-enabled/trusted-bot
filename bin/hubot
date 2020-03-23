@@ -5,4 +5,9 @@ set -e
 npm install
 export PATH="node_modules/.bin:node_modules/hubot/node_modules/.bin:$PATH"
 
-exec node_modules/.bin/hubot --name "trusted-bot" "$@"
+exec node \
+  ${INSPECT:+--inspect=0.0.0.0:9229} \
+  ${DEBUGBRK:+--debug-brk} \
+  node_modules/.bin/coffee node_modules/.bin/hubot \
+    --alias "%" \
+    --name "trusted-bot" "$@"
