@@ -72,6 +72,10 @@ module.exports = function(robot) {
   robot.respond(/ct (.*)/i, (msg) => {
     let parsed = moment(Date.parse(msg.match[1]));
     let calculated = calculate(parsed.year(), parsed.month() + 1, parsed.date());
-    msg.send(`You have ${calculated.years} years, ${calculated.months} months, ${calculated.days} days, or ${calculated.totalDays} total days.`);
+    if (isNaN(calculated.totalDays)) {
+      msg.send("Clean Date entered incorrectly.  Check your entry, here is a example: `%ct 09-22-2011`.");
+    } else {
+      msg.send(`You have ${calculated.years} years, ${calculated.months} months, ${calculated.days} days, or ${calculated.totalDays} total days.`);
+    }
   });
 };
