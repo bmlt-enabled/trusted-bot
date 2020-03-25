@@ -9,6 +9,9 @@
 //
 // Commands:
 //   hubot jft
+//
+// Author:
+//   radius314
 
 module.exports = function(robot) {
 
