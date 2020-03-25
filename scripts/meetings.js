@@ -26,7 +26,7 @@ module.exports = function(robot) {
       let result = JSON.parse(body)['results'][0];
       let latitude = result['geometry']['location']['lat'];
       let longitude = result['geometry']['location']['lng'];
-      let query = `${virtualYapServer}/meeting-search.php?Latitude=${latitude}&Longitude=${longitude}&nocleanlink=1`;
+      let query = `${virtualYapServer}/meeting-search.php?Latitude=${latitude}&Longitude=${longitude}&result_count_max=10`;
       console.log(query);
       robot.http(query).get()((err, res, body) => {
         parseString(body, function (err, result) {
