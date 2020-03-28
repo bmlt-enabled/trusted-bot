@@ -76,36 +76,38 @@ module.exports = function(robot) {
       msg.send("Clean Date entered incorrectly.  Check your entry, here is a example: `%ct 09-22-2011`.");
     } else {
       msg.send(`You have ${calculated.years} years, ${calculated.months} months, ${calculated.days} days, or ${calculated.totalDays} total days.`);
+      let milestoneBuffer = 7;
 
       // Milestones
-      if (calculated.years === 0 && calculated.months === 0 && calculated.days < 7) {
+      if (calculated.years === 0 && calculated.months === 0 && calculated.days < milestoneBuffer) {
         msg.send("Welcome, keep coming back!");
-        msg.send(":keymoji-white:");
-      } else if (calculated.years === 0 && calculated.months === 0 && calculated.days < 37) {
+        msg.send(":keymoji_white:");
+      } else if (calculated.years === 0 && calculated.months === 0 && calculated.days < 30 + milestoneBuffer) {
         msg.send("Congratulations on 30 days clean!");
-        msg.send(":keymoji-30d:");
-      } else if (calculated.years === 0 && calculated.months === 0 && calculated.days < 67) {
+        msg.send(":keymoji_30d:");
+      } else if (calculated.years === 0 && calculated.months === 0 && calculated.days < 60 + milestoneBuffer) {
         msg.send("Congratulations on 60 days clean!");
-        msg.send(":keymoji-60d:");
-      } else if (calculated.years === 0 && calculated.months === 0 && calculated.days < 97) {
+        msg.send(":keymoji_60d:");
+      } else if (calculated.years === 0 && calculated.months === 0 && calculated.days < 90 + milestoneBuffer) {
         msg.send("Congratulations on 90 days clean!");
-        msg.send(":keymoji-90d:");
-      } else if (calculated.years === 0 && calculated.months === 6 && calculated.days < 7) {
+        msg.send(":keymoji_90d:");
+      } else if (calculated.years === 0 && calculated.months === 6 && calculated.days < milestoneBuffer) {
         msg.send("Congratulations on 6 months clean!");
-        msg.send(":keymoji-6m:");
-      } else if (calculated.years === 0 && calculated.months === 9 && calculated.days < 7) {
+        msg.send(":keymoji_6m:");
+      } else if (calculated.years === 0 && calculated.months === 9 && calculated.days < milestoneBuffer) {
         msg.send("Congratulations on 9 months clean!");
-        msg.send(":keymoji-9m:");
-      } else if (calculated.years === 1 && calculated.months === 0 && calculated.days < 7) {
+        msg.send(":keymoji_9m:");
+      } else if (calculated.years === 1 && calculated.months === 0 && calculated.days < milestoneBuffer) {
         msg.send("Congratulations on 1 year clean!");
-        msg.send(":keymoji-1y:");
-      } else if (calculated.years === 1 && calculated.months === 6 && calculated.days < 7) {
+        msg.send(":keymoji_1y:");
+      } else if (calculated.years === 1 && calculated.months === 6 && calculated.days < milestoneBuffer) {
         msg.send("Congratulations on 18 months clean!");
-        msg.send(":keymoji-18m:");
-      } else if (calculated.years > 1 && calculated.months === 0 && calculated.days === 0) {
+        msg.send(":keymoji_18m:");
+      } else if (calculated.years > 1 && calculated.months === 0 && calculated.days < milestoneBuffer) {
         msg.send("Congratulations on " + calculated.years + " years clean!");
-        msg.send(":keymoji-my:");
+        msg.send(":keymoji_my:");
       }
     }
   });
 };
+
