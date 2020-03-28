@@ -27,7 +27,7 @@ module.exports = function(robot) {
   }
 
   robot.respond(/jft/i, (msg) => {
-    console.log(JSON.stringify(msg));
+    console.log(JSON.stringify(msg.message.room));
     sendJft(function(err, res, body) {
       msg.send("```" + strip_html_tags(body) + "```");
     });
