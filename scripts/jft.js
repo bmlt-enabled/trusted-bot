@@ -20,6 +20,7 @@ module.exports = function(robot) {
     console.log(`Starting JFT timer for ${process.env.JFT_ROOM}.`);
     var job = new CronJob('0 0 5 * * *', function () {
       sendJft(function (err, res, body) {
+        console.log("got JFT");
         robot.messageRoom(process.env.JFT_ROOM, "```" + strip_html_tags(body) + "```");
       });
     }, null, true, 'America/New_York');
