@@ -17,7 +17,8 @@ var CronJob = require('cron').CronJob;
 
 module.exports = function(robot) {
   if (process.env.JFT_ROOM) {
-    var job = new CronJob('0 0/1 * * * *', function () {
+    console.log(`Starting JFT timer for ${process.env.JFT_ROOM}.`);
+    var job = new CronJob('0 0 5 * * *', function () {
       sendJft(function (err, res, body) {
         robot.messageRoom(process.env.JFT_ROOM, "```" + strip_html_tags(body) + "```");
       });
@@ -26,6 +27,7 @@ module.exports = function(robot) {
   }
 
   robot.respond(/jft/i, (msg) => {
+    console.log(JSON.stringify(msg));
     sendJft(function(err, res, body) {
       msg.send("```" + strip_html_tags(body) + "```");
     });
