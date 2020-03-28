@@ -5,6 +5,7 @@
   "author": "Danny Gershman <danny.gershman@gmail.com>",
   "description": "A helpful bot for discord",
   "dependencies": {
+    "cron": "^1.8.2",
     "hubot": "^3.3.2",
     "hubot-diagnostics": "^1.0.0",
     "hubot-discord": "^2.1.0",
