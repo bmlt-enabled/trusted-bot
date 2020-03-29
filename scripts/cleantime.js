@@ -80,24 +80,26 @@ module.exports = function(robot) {
 
       // Milestones
       // https://www.reddit.com/r/discordapp/comments/58t9x8/how_do_i_make_a_bot_type_an_emojiserver_emoji/
-      if (calculated.years === 0 && calculated.months === 0 && calculated.days < milestoneBuffer) {
-        msg.send("Welcome, keep coming back! <:keymoji_white:692750697225125889>");
+      let keymoji_path = "https://bmlt-enabled.github.io/trusted-bot/keymoji_";
+
+      if (calculated.years === 0 && calculated.months === 0 && calculated.days <= milestoneBuffer) {
+        msg.send("Welcome, keep coming back! " + keymoji_path + "welcome.png");
       } else if (calculated.years === 0 && calculated.months === 0 && calculated.days < 30 + milestoneBuffer) {
-        msg.send("Congratulations on 30 days clean! <:keymoji_30:692750696826535997>");
+        msg.send("Congratulations on 30 days clean! " + keymoji_path + "30d.png");
       } else if (calculated.years === 0 && calculated.months === 0 && calculated.days < 60 + milestoneBuffer) {
-        msg.send("Congratulations on 60 days clean! <:keymoji_60:692750697166274570>");
+        msg.send("Congratulations on 60 days clean! " + keymoji_path + "60d.png");
       } else if (calculated.years === 0 && calculated.months === 0 && calculated.days < 90 + milestoneBuffer) {
-        msg.send("Congratulations on 90 days clean! <:keymoji_90:692750697451618325>");
+        msg.send("Congratulations on 90 days clean! " + keymoji_path + "90d.png");
       } else if (calculated.years === 0 && calculated.months === 6 && calculated.days < milestoneBuffer) {
-        msg.send("Congratulations on 6 months clean! <:keymoji_6m:692750697242034237>");
+        msg.send("Congratulations on 6 months clean! " + keymoji_path + "6m.png");
       } else if (calculated.years === 0 && calculated.months === 9 && calculated.days < milestoneBuffer) {
-        msg.send("Congratulations on 9 months clean! <:keymoji_9m:692750697351086110>");
+        msg.send("Congratulations on 9 months clean! " + keymoji_path + "9m.png");
       } else if (calculated.years === 1 && calculated.months === 0 && calculated.days < milestoneBuffer) {
-        msg.send("Congratulations on 1 year clean! <:keymoji_1y:692750696944107591>");
+        msg.send("Congratulations on 1 year clean! " + keymoji_path + "1y.png");
       } else if (calculated.years === 1 && calculated.months === 6 && calculated.days < milestoneBuffer) {
-        msg.send("Congratulations on 18 months clean! <:keymoji_18m:692750697199829033>");
+        msg.send("Congratulations on 18 months clean! " + keymoji_path + "18m.png");
       } else if (calculated.years > 1 && calculated.months === 0 && calculated.days < milestoneBuffer) {
-        msg.send("Congratulations on " + calculated.years + " years clean! <:keymoji_my:692750697288040498>");
+        msg.send("Congratulations on " + calculated.years + " years clean! " + keymoji_path + "my.png");
       }
     }
   });
