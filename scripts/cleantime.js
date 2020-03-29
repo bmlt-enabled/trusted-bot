@@ -84,11 +84,11 @@ module.exports = function(robot) {
 
       if (calculated.years === 0 && calculated.months === 0 && calculated.days <= milestoneBuffer) {
         msg.send("Welcome, keep coming back! " + keymoji_path + "welcome.png");
-      } else if (calculated.totalDays >= 30 + milestoneBuffer && calculated.totalDays < 30 + milestoneBuffer) {
+      } else if (calculated.totalDays >= 30 && calculated.totalDays < 30 + milestoneBuffer) {
         msg.send("Congratulations on 30 days clean! " + keymoji_path + "30d.png");
-      } else if (calculated.totalDays >= 60 + milestoneBuffer && calculated.totalDays < 60 + milestoneBuffer) {
+      } else if (calculated.totalDays >= 60 && calculated.totalDays < 60 + milestoneBuffer) {
         msg.send("Congratulations on 60 days clean! " + keymoji_path + "60d.png");
-      } else if (calculated.totalDays >= 90 + milestoneBuffer && calculated.totalDays < 90 + milestoneBuffer) {
+      } else if (calculated.totalDays >= 90 && calculated.totalDays < 90 + milestoneBuffer) {
         msg.send("Congratulations on 90 days clean! " + keymoji_path + "90d.png");
       } else if (calculated.years === 0 && calculated.months === 6 && calculated.days < milestoneBuffer) {
         msg.send("Congratulations on 6 months clean! " + keymoji_path + "6m.png");
