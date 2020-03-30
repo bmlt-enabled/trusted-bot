@@ -13,6 +13,7 @@
 //
 // Author:
 //   radius314
+var parseString = require('xml2js').parseString;
 
 module.exports = function(robot) {
   var api_token = process.env.GOOGLE_API_TOKEN;
