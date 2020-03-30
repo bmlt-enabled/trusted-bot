@@ -14,8 +14,6 @@
 // Author:
 //   radius314
 
-var parseString = require('xml2js').parseString;
-
 module.exports = function(robot) {
   var api_token = process.env.GOOGLE_API_TOKEN;
   let virtualYapServer = process.env.VIRTUAL_YAP_SERVER;
@@ -26,7 +24,7 @@ module.exports = function(robot) {
       let result = JSON.parse(body)['results'][0];
       let latitude = result['geometry']['location']['lat'];
       let longitude = result['geometry']['location']['lng'];
-      let query = `${virtualYapServer}/meeting-search.php?Latitude=${latitude}&Longitude=${longitude}&result_count_max=10`;
+      let query = `${virtualYapServer}/meeting-search.php?Latitude=${latitude}&Longitude=${longitude}&result_count_max=10&suppress_voice_results=false`;
       console.log(query);
       robot.http(query).get()((err, res, body) => {
         parseString(body, function (err, result) {
