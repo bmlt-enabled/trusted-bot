@@ -15,6 +15,7 @@
 
 module.exports = function(robot) {
   robot.respond(/count/i, (msg) => {
-    msg.send(msg.robot.adapter.rooms[msg.message.room].guild['memberCount'])
+    let membersCount = msg.robot.adapter.rooms[msg.message.room].guild['memberCount']
+    msg.send(`There are ${membersCount} members in this server.`)
   })
 };
