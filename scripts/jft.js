@@ -29,7 +29,7 @@ module.exports = function(robot) {
   robot.respond(/jft/i, (msg) => {
     console.log(JSON.stringify(msg.message.room));
     sendJft(function(err, res, body) {
-      msg.send("```" + strip_html_tags(body) + "```");
+      msg.send("```" + remove_extra_spaces(strip_html_tags(body)) + "```");
     });
   });
 
@@ -37,6 +37,10 @@ module.exports = function(robot) {
     robot.http("https://www.jftna.org/jft/").get()((err, res, body) => {
       callback(err, res, body);
     })
+  }
+
+  function remove_extra_spaces(str) {
+    return str.replace(/(\n\n\n\n)/gm, '');
   }
 
   function strip_html_tags(str) {
