@@ -40,7 +40,7 @@ module.exports = function(robot) {
   }
 
   function remove_extra_spaces(str) {
-    return str.replace(/\n\n/gm, '');
+    return str.replace(/\n\n/gm, '').replace(/  \n  /gm, '\n')
   }
 
   function strip_html_tags(str) {
