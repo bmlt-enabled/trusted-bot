@@ -19,7 +19,7 @@ module.exports = function(robot) {
   var api_token = process.env.GOOGLE_API_TOKEN;
   let virtualYapServer = process.env.VIRTUAL_YAP_SERVER;
 
-  function sendResults(query) {
+  function sendResults(query, callback) {
     robot.http(query).get()((err, res, body) => {
       parseString(body, function (err, result) {
         let data = result["Response"]["Say"];
@@ -34,7 +34,7 @@ module.exports = function(robot) {
           chunk++;
           messageText += data[i]["_"] + " ";
           if (chunk === 4) {
-            msg.send(messageText);
+            callback(messageText);
             chunk = 0;
             messageText = "";
           }
@@ -44,7 +44,9 @@ module.exports = function(robot) {
   }
 
   robot.respond(/thisvm/i, (msg) => {
-    sendResults(`${virtualYapServer}/meeting-search.php?Latitude=35.5648713&Longitude=-78.6682395&result_count_max=10&suppress_voice_results=false&custom_query=%26services%3D15amp;{DAY}`)
+    sendResults(`${virtualYapServer}/meeting-search.php?Latitude=35.5648713&Longitude=-78.6682395&result_count_max=10&suppress_voice_results=false&custom_query=%26services%3D15amp;{DAY}`, results => {
+      msg.send(results)
+    })
   });
 
   robot.respond(/vm (.*)/i, (msg) => {
@@ -53,7 +55,9 @@ module.exports = function(robot) {
       let result = JSON.parse(body)['results'][0];
       let latitude = result['geometry']['location']['lat'];
       let longitude = result['geometry']['location']['lng'];
-      sendResults(`${virtualYapServer}/meeting-search.php?Latitude=${latitude}&Longitude=${longitude}&result_count_max=10&suppress_voice_results=false`);
+      sendResults(`${virtualYapServer}/meeting-search.php?Latitude=${latitude}&Longitude=${longitude}&result_count_max=10&suppress_voice_results=false`, results => {
+        msg.send(results)
+      });
     });
   });
 };
