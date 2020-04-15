@@ -44,7 +44,7 @@ module.exports = function(robot) {
   }
 
   robot.respond(/thisvm/i, (msg) => {
-    sendResults(`${virtualYapServer}/meeting-search.php?Latitude=35.5648713&Longitude=-78.6682395&result_count_max=10&suppress_voice_results=false&custom_query=%26services%3D15amp;{DAY}`, results => {
+    sendResults(`${virtualYapServer}/meeting-search.php?Latitude=35.5648713&Longitude=-78.6682395&result_count_max=5&suppress_voice_results=false&custom_query=%26services%3D15amp;{DAY}`, results => {
       msg.send(results)
     })
   });
