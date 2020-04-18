@@ -36,6 +36,8 @@ module.exports = function(robot) {
       thisVirtualMeetings((err, res, body) => {
         for (let meeting of JSON.parse(body)['filteredList']) {
           let date_stamp = nextInstanceOfMeeting(meeting);
+          let diffMins = date_stamp.diff(moment(), 'minutes');
+          console.log(`meetings.js diffMins: ${diffMins}`);
           if (date_stamp.diff(moment(), 'minutes') === announcementGraceMins) {
             robot.messageRoom(`TESTING!!! ${meeting['meeting_name']} meeting soon at ${date_stamp.format("hh:mm A z")}.  Click the HTTPS link to be brought into the voice channel.\n\nDon't forget to mute your mic.\n\n${meeting['comments']}`)
           }
