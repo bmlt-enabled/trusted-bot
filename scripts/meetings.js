@@ -16,7 +16,7 @@
 //
 // Commands:
 //   hubot vm <location> - Returns a selection of upcoming virtual meetings with the timezone adjustment based of entered location.
-//   hubot vmthis - Returns the meetings for the service body ID for this particular server from VIRTUAL_YAP_SERVER.
+//   hubot vmthis - Returns the next meeting for the service body ID for this particular server from VIRTUAL_YAP_SERVER.
 //
 // Author:
 //   radius314
@@ -32,10 +32,9 @@ module.exports = function(robot) {
 
   if (process.env.MEETING_SCHEDULE_ROOM) {
     console.log(`Starting Meeting Schedule timer for ${process.env.MEETING_SCHEDULE_ROOM}.`);
-    var job = new CronJob('30 * * * * *', function () {
+    var job = new CronJob('* 0/1 * * * *', function () {
       thisVirtualMeetings((err, res, body) => {
         for (let meeting of JSON.parse(body)['filteredList']) {
-          moment.tz.setDefault(process.env.DEFAULT_SERVER_TIMEZONE);
           let date_stamp = nextInstanceOfMeeting(meeting);
           if (date_stamp.diff(moment(), 'minutes') === announcementGraceMins) {
             robot.messageRoom(`TESTING!!! ${meeting['meeting_name']} meeting soon at ${date_stamp.format("hh:mm A z")}.  Click the HTTPS link to be brought into the voice channel.\n\nDon't forget to mute your mic.\n\n${meeting['comments']}`)
@@ -47,6 +46,7 @@ module.exports = function(robot) {
   }
 
   function nextInstanceOfMeeting(meeting) {
+    moment.tz.setDefault(process.env.DEFAULT_SERVER_TIMEZONE);
     let today = moment().isoWeekday();
     let time = moment(meeting['start_time'], "HH:mm A");
     let day_id = meeting['weekday_tinyint'] - 1;
