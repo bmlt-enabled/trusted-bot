@@ -32,7 +32,7 @@ module.exports = function(robot) {
 
   if (process.env.MEETING_SCHEDULE_ROOM) {
     console.log(`Starting Meeting Schedule timer for ${process.env.MEETING_SCHEDULE_ROOM}.`);
-    var job = new CronJob('* 0/1 * * * *', function () {
+    var job = new CronJob('0 0/1 * * * *', function () {
       thisVirtualMeetings((err, res, body) => {
         for (let meeting of JSON.parse(body)['filteredList']) {
           let date_stamp = nextInstanceOfMeeting(meeting);
