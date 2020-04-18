@@ -40,7 +40,7 @@ module.exports = function(robot) {
           let diffMins = date_stamp.diff(moment(), 'minutes');
           if (diffMins === lastTime) diffMins--;
           console.log(`meetings.js diffMins: ${diffMins}`);
-          if (diffMins === announcementGraceMins) {
+          if (diffMins === parseInt(announcementGraceMins)) {
             console.log(`Time to gooooo!!`);
             robot.messageRoom(`TESTING!!! ${meeting['meeting_name']} meeting soon at ${date_stamp.format("hh:mm A z")}.  Click the HTTPS link to be brought into the voice channel.\n\nDon't forget to mute your mic.\n\n${meeting['comments']}`)
           } else {
