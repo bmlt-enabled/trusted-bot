@@ -64,7 +64,7 @@ module.exports = function(robot) {
     robot.http(query).get()(callback);
   }
 
-  function sendResults(query, callback) {
+  function getResults(query, callback) {
     robot.http(query).get()((err, res, body) => {
       parseString(body, function (err, result) {
         let data = result["Response"]["Say"];
@@ -108,7 +108,7 @@ module.exports = function(robot) {
       let result = JSON.parse(body)['results'][0];
       let latitude = result['geometry']['location']['lat'];
       let longitude = result['geometry']['location']['lng'];
-      sendResults(`${virtualYapServer}/meeting-search.php?Latitude=${latitude}&Longitude=${longitude}&result_count_max=10&suppress_voice_results=false`, results => {
+      getResults(`${virtualYapServer}/meeting-search.php?Latitude=${latitude}&Longitude=${longitude}&result_count_max=10&suppress_voice_results=false`, results => {
         msg.send(results)
       });
     });
