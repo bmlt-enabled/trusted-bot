@@ -17,6 +17,7 @@
 // Commands:
 //   hubot vm <location> - Returns a selection of upcoming virtual meetings with the timezone adjustment based of entered location.
 //   hubot vmthis - Returns the next meeting for the service body ID for this particular server from VIRTUAL_YAP_SERVER.
+//   hubot
 //
 // Author:
 //   radius314
@@ -25,27 +26,61 @@ var parseString = require('xml2js').parseString;
 var moment = require('moment');
 var CronJob = require('cron').CronJob;
 
-module.exports = function(robot) {
+module.exports = robot => {
   var api_token = process.env.GOOGLE_API_TOKEN;
   let virtualYapServer = process.env.VIRTUAL_YAP_SERVER;
   let announcementGraceMins = process.env.ANNOUNCEMENT_GRACE_MINS;
 
   if (process.env.MEETING_SCHEDULE_ROOM) {
     console.log(`Starting Meeting Schedule timer for ${process.env.MEETING_SCHEDULE_ROOM}.`);
-    var job = new CronJob('0/30 * * * * *', function () {
+    var reminderSenderJob = new CronJob('0 0/1 * * * *', _ => {
       thisVirtualMeetings((err, res, body) => {
         for (let meeting of JSON.parse(body)['filteredList']) {
           let date_stamp = nextInstanceOfMeeting(meeting);
           let diffMins = date_stamp.diff(moment(), 'minutes');
           console.log(`meetings.js diffMins: ${diffMins}`);
-          if (diffMins === parseInt(announcementGraceMins)) {
-            console.log(`Time to gooooo!!`);
+          if (diffMins < parseInt(announcementGraceMins) && !hasReminderBeenSent(meeting['id_bigint'])) {
+            markReminderSent(meeting['id_bigint']);
             robot.messageRoom(process.env.MEETING_SCHEDULE_ROOM, `TESTING!!! ${meeting['meeting_name']} meeting soon at ${date_stamp.format("hh:mm A z")}.  Click the HTTPS link to be brought into the voice channel.\n\nDon't forget to mute your mic.\n\n${meeting['comments']}`)
           }
         }
       });
     }, null, true, process.env.DEFAULT_SERVER_TIMEZONE);
-    job.start();
+    reminderSenderJob.start();
+
+    var reminderClearJob = new CronJob('0 0 * * *', _ => {
+      clearRemindersMarkers();
+    });
+    reminderClearJob.start();
+  }
+
+  function hasReminderBeenSent(id) {
+    if (!Array.isArray(storage['meetingReminders'])) {
+      storage['meetingReminders'] = [];
+      return false;
+    } else {
+      let meetingReminders = storage['meetingReminders'];
+
+      for (let reminder of meetingReminders) {
+        if (reminder === id) {
+          return true;
+        }
+      }
+    }
+  }
+
+  function markReminderSent(id) {
+    if (!Array.isArray(storage['meetingReminders'])) {
+      storage['meetingReminders'] = [];
+    }
+
+    storage['meetingReminders'].push(id);
+    robot.brain.save()
+  }
+
+  function clearRemindersMarkers() {
+    storage['meetingReminders'] = [];
+    robot.brain.save()
   }
 
   function nextInstanceOfMeeting(meeting) {
@@ -69,7 +104,7 @@ module.exports = function(robot) {
 
   function getResults(query, callback) {
     robot.http(query).get()((err, res, body) => {
-      parseString(body, function (err, result) {
+      parseString(body, (err, result) => {
         let data = result["Response"]["Say"];
         let chunk = 0;
         let messageText = "";
@@ -90,6 +125,11 @@ module.exports = function(robot) {
       });
     })
   }
+
+  robot.respond(/vmreminderclear/i, msg => {
+    clearRemindersMarkers();
+    msg.send("Reminders cleared.");
+  });
 
   robot.respond(/thisvm/i, (msg) => {
     thisVirtualMeetings((err, res, body) => {
