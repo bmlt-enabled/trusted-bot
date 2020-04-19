@@ -126,9 +126,19 @@ module.exports = robot => {
     })
   }
 
-  robot.respond(/vmreminderclear/i, msg => {
+  robot.respond(/vmremindersclear/i, msg => {
     clearRemindersMarkers();
     msg.send("Reminders cleared.");
+  });
+
+  robot.respond(/vmremindersget/i, msg => {
+    if (Array.isArray(storage['meetingReminders'])) {
+      for (let marker of storage['meetingReminders']) {
+        msg.send(marker);
+      }
+    } else {
+      msg.send("No markers set for reminders yet.");
+    }
   });
 
   robot.respond(/thisvm/i, (msg) => {
