@@ -4,7 +4,7 @@ build:
 	docker-compose build
 
 clean:
-	docker rmi trusted-bot_trustedbot
+	docker rmi -f trusted-bot_trustedbot
 
 run: # https://github.com/docker/compose/issues/1259
 	docker-compose run -e INSPECT=true -e ADAPTER=shell -e HUBOT_NAME=trusted-bot --service-ports trustedbot
