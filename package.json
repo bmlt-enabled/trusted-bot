@@ -23,7 +23,7 @@
     "hubot-urban": "^1.0.1",
     "hubot-victory": "^1.5.3",
     "moment": "^2.24.0",
-    "moment-timezone": "^0.5.28",
+    "moment-timezone": "^0.5.35",
     "xml2js": "^0.4.23"
   },
   "engines": {
