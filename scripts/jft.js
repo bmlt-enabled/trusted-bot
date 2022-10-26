@@ -34,7 +34,7 @@ module.exports = function(robot) {
   });
 
   function sendJft(callback) {
-    robot.http("https://www.jftna.org/jft/").get()((err, res, body) => {
+    robot.http("https://jftna.org/jft/").get()((err, res, body) => {
       callback(err, res, body);
     })
   }
